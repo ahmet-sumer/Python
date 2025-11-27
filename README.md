@@ -7,3 +7,6 @@ Hey there! Welcome
 > 24.11.25 -> Kaggle Python Certificate Earned
 
 > 25.11.25 -> Python Timer App
+
+> 27.11.25 -> NumPy training has finished - Cheatsheet Added
+
