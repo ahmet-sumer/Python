@@ -1,0 +1,51 @@
+import numpy as np
+
+a = np.arange(1,25).reshape(4,6)
+# Output
+[[ 1  2  3  4  5  6]
+ [ 7  8  9 10 11 12]
+ [13 14 15 16 17 18]
+ [19 20 21 22 23 24]]
+
+axis=0 -> [1,2,3,4,5,6]
+axis=1 -> [1,7,13,19]
+
+np.random.rand() -> float (0-1 arası)
+np.random.randint(x,y) -> random for given x & y integer numbers
+
+.reshape != .random -> Can't usable in random
+size=(x) => To see randoms dimension:
+    np.random.randint(1,21,size=(2,10)) -> 2 line 10 column matrix
+
+.ndim -> dimension value
+.dtpye -> data type => int64 int32
+.shape -> shape value => a.shape == (4,6)
+
+.ones, .zeros, .full -> returns the arrays with the given input value (.full doesn't have own value need to input)
+
+.min, .max -> Returns arrays minimum or maximum values
+.argmin, .argmax -> Returns index of arrays minimum or maximum values
+
+.flatten, .ravel -> They both flattens the given array but while .flatten copying the array and keeps it in the memory .ravel doesn't
+
+.where -> chooses values of arrays => np.where(a < 10 , 1, 0)
+                                  # OUTPUT -> [[1 1 1 1 1 1]
+                                               [1 1 1 0 0 0]
+                                               [0 0 0 0 0 0]
+                                               [0 0 0 0 0 0]]
+
+@ -> a@b multiplying as matrix a with the b
+.T -> transpose of a matrix
+
+.sum -> concatenates arrays values
+
+.eye -> np.eye(3)
+# OUTPUT 
+[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]] 
+
+.mean -> Returns the average of the array elements (sometimes it needs axis)
+.std -> Returns the standard deviation, a measure of the spread of a distribution, of the array elements
+
+
