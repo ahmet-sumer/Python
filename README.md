@@ -10,3 +10,4 @@ Hey there! Welcome
 
 > 27.11.25 -> NumPy training has finished - Cheatsheet Added
 
+> 03.12.25 -> Pandas training finished - Cheatsheet Added
