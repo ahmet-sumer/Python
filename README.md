@@ -1,13 +1,7 @@
-Hey there! Welcome
+Hey There, Welcome to my
 
-- I am currently working on some projects so don't forget to star and follow the news
+# Python Learning Journey 🚀
 
-> 24.11.25 ->CS50 Introduction to AI with Python finished
+# Current Week :
+- ** 3-4
 
-> 24.11.25 -> Kaggle Python Certificate Earned
-
-> 25.11.25 -> Python Timer App
-
-> 27.11.25 -> NumPy training has finished - Cheatsheet Added
-
-> 03.12.25 -> Pandas training finished - Cheatsheet Added
