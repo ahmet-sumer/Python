@@ -1,6 +1,6 @@
 Hey There, Welcome to my
 
-# Python Learning Journey 🚀
+# AI + Security Learning Journey 🚀
 
 # Current Week :
 - **3-4 Week Data Visualization & Web Scraping & Email Automation**
