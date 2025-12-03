@@ -8,7 +8,7 @@ class SimpleTimer:
         self.is_running = True
     
     def pause_resume(self):
-        """Kullanıcı input'u için thread"""
+        """Thread for User input"""
         while self.is_running:
             cmd = input()
             if cmd.lower() == 'p':
