@@ -1,0 +1,424 @@
+import pandas as pd
+
+- DataFrame and Series differences
+
+Note: Using Kaggle's titanic Dataset for this cheatsheet 
+
+pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]})
+# Output
+ \ Yes No
+0  50  131
+1  21  2
+
+pd.Dataframe({'Yes': [50, 21], 'No': [131, 2]}, index=["Alex", "Bex"])
+# Output
+ \   Yes   No
+Alex  50   131
+Bex   21   2
+
+
+pd.Series[[1,2,3,4,5]]
+0 1
+1 2
+2 3
+4 5
+dtype: int64
+
+pd.Series[[1,2,3,4,5],name="Alex"]
+0 1
+1 2
+2 3
+3 4
+4 5
+Name: Alex, dtype: int64
+
+---------
+
+titanic = pd.read_csv('titanic.csv')
+
+titanic.head()
+# Output
+< Passengerid   Age     Fare  Sex  sibsp  zero  zero.1  zero.2  zero.3  zero.4  ...  zero.12  zero.13  zero.14  Pclass  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived
+0            1  22.0   7.2500    0      1     0       0       0       0       0  ...        0        0        0       3        0        0       2.0        0        0         0
+1            2  38.0  71.2833    1      1     0       0       0       0       0  ...        0        0        0       1        0        0       0.0        0        0         1
+2            3  26.0   7.9250    1      0     0       0       0       0       0  ...        0        0        0       3        0        0       2.0        0        0         1
+3            4  35.0  53.1000    1      1     0       0       0       0       0  ...        0        0        0       1        0        0       2.0        0        0         1
+4            5  35.0   8.0500    0      0     0       0       0       0       0  ...        0        0        0       3        0        0       2.0        0        0         0
+
+[5 rows x 28 columns]
+
+titanic.shape
+# Output
+(1309, 28)
+
+
+titanic.Pclass
+# Output
+0       3
+1       1
+2       3
+3       1
+4       3
+       ..
+1304    3
+1305    1
+1306    3
+1307    3
+1308    3
+Name: Pclass, Length: 1309, dtype: int64
+
+titanic.Age[0]
+# Output
+22.0
+
+
+
+- iloc and loc differences | Both loc and iloc are row-first, column-second
+
+Note: .iloc takes only index number value yet .loc is takes Data index as a value
+
+titanic.iloc[0] | titanic.loc[0]
+# Output
+Passengerid     1.00
+Age            22.00
+Fare            7.25
+Sex             0.00
+sibsp           1.00
+zero            0.00
+zero.1          0.00
+zero.2          0.00
+...             ...
+zero.13         0.00
+zero.14         0.00
+Pclass          3.00
+zero.15         0.00
+zero.16         0.00
+Embarked        2.00
+zero.17         0.00
+zero.18         0.00
+2urvived        0.00
+Name: 0, dtype: float64
+
+
+titanic.iloc[1:3,:]
+# Output
+Passengerid   Age  Fare    Sex   sibsp  zero  zero.1  zero.2  zero.3  zero.4        ...  zero.12  zero.13  zero.14  Pclass  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived
+  1            2   38.0  71.2833    1      1     0       0       0       0       0  ...        0        0        0       1        0        0       0.0        0        0         1
+  2            3   26.0   7.9250    1      0     0       0       0       0       0  ...        0        0        0       3        0        0       2.0        0        0         1
+
+[2 rows x 28 columns
+
+titanic.iloc[0, 1:3]
+# Output
+Age     22.00
+Fare     7.25
+Name: 0, dtype: float64 
+
+OR
+
+titanic.loc[0,["Age","Fare"]]
+# Output
+Age     22.00
+Fare     7.25
+Name: 0, dtype: float64
+
+
+titanic.loc[(titanic["Age"] > 21) & (titanic["Sex"] == 0) , "2urvived"]
+# Output
+ 0         7.2500
+4         8.0500
+5         8.4583
+6        51.8625
+13       31.2750
+          ...   
+1298    211.5000
+1304      8.0500
+1306      7.2500
+1307      8.0500
+1308     22.3583
+Name: Fare, Length: 672, dtype: float64 
+
+
+s = pd.Series(["A", "B", "A", "C", "B", "A"])
+s.value_counts()
+# Output
+A    3
+B    2
+C    1
+dtype: int64
+
+s.unique()
+# Output
+Array[("A","B","C"),dtype=object]
+
+mean - max - describe
+
+df["AgeGroup"] = df["Age"].apply(lambda x : "Child" if x < 20  else "Adult")
+# Output
+Changes Ages if under 20 with Child 
+else Adult
+0       Adult
+1       Adult
+2       Adult
+3       Adult
+4       Adult
+        ...  
+1304    Adult
+1305    Adult
+1306    Adult
+1307    Adult
+1308    Adult
+Name: AgeGroup, Length: 1309, dtype: object
+
+
+genders = {"F": 0, "M": 1} 
+df["gender_num"] = df["gender"].map(genders)
+# Output
+0       F
+1       M
+2       M
+3       M
+4       F
+       ..
+1304    F
+1305    M
+1306    F
+1307    F
+1308    F
+Name: gender_num, Length: 1309, dtype: object
+
+
+
+
+df.groupby(["Pclass","gender"])["2urvived"].mean()
+# Output
+Gen  Pclass
+0    1         0.251397
+     2         0.099415
+     3         0.095335
+1    1         0.631944
+     2         0.660377
+     3         0.333333
+Name: 2urvived, dtype: float64
+
+
+
+df = df.rename(columns={"Sex":"Gender"} , inplace=True)
+
+df.head()
+
+# Output 
+   Passengerid   Age     Fare  Gender  sibsp  zero  zero.1  zero.2  zero.3  ...  Pclass  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived  AgeGroup  gender_num
+0            1  22.0   7.2500       0      1     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+1            2  38.0  71.2833       1      1     0       0       0       0  ...       1        0        0       0.0        0        0         1     Adult           M
+2            3  26.0   7.9250       1      0     0       0       0       0  ...       3        0        0       2.0        0        0         1     Adult           M
+3            4  35.0  53.1000       1      1     0       0       0       0  ...       1        0        0       2.0        0        0         1     Adult           M
+4            5  35.0   8.0500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+
+[5 rows x 30 columns]
+
+
+
+df.rename(index={0: "First", 1: "Second"})
+
+# Output
+        Passengerid   Age    Fare    Gender  sibsp  zero  zero.1  zero.2  zero.3   ...  Pclass  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived  AgeGroup  gender_num
+First             1  22.0   7.2500       0      1     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+Second            2  38.0  71.2833       1      1     0       0       0       0  ...       1        0        0       0.0        0        0         1     Adult           M
+2                 3  26.0   7.9250       1      0     0       0       0       0  ...       3        0        0       2.0        0        0         1     Adult           M
+3                 4  35.0  53.1000       1      1     0       0       0       0  ...       1        0        0       2.0        0        0         1     Adult           M
+4                 5  35.0   8.0500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+
+
+
+df.rename_axis("Categories",axis="columns").rename_axis("Indexes",axis="rows")
+
+# Output
+ Categories  Passengerid   Age      Fare  Gender  sibsp  zero  zero.1  zero.2  zero.3  ...  Pclass  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived  AgeGroup  gender_num
+Indexes                                                                               ...                                                                                      
+0                     1  22.0    7.2500       0      1     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+1                     2  38.0   71.2833       1      1     0       0       0       0  ...       1        0        0       0.0        0        0         1     Adult           M
+2                     3  26.0    7.9250       1      0     0       0       0       0  ...       3        0        0       2.0        0        0         1     Adult           M
+3                     4  35.0   53.1000       1      1     0       0       0       0  ...       1        0        0       2.0        0        0         1     Adult           M
+4                     5  35.0    8.0500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+...                 ...   ...       ...     ...    ...   ...     ...     ...     ...  ...     ...      ...      ...       ...      ...      ...       ...       ...         ...
+1304               1305  28.0    8.0500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+1305               1306  39.0  108.9000       1      0     0       0       0       0  ...       1        0        0       0.0        0        0         0     Adult           M
+1306               1307  38.5    7.2500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+1307               1308  28.0    8.0500       0      0     0       0       0       0  ...       3        0        0       2.0        0        0         0     Adult           F
+1308               1309  28.0   22.3583       0      1     0       0       0       0  ...       3        0        0       0.0        0        0         0     Adult           F
+
+[1309 rows x 30 columns]
+
+
+
+df1 = pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]}, index=["Alex", "Bex"])
+df2 = pd.DataFrame({'Yes': [43, 12], 'No': [123, 21]}, index=["Clew", "Ferd"])
+
+
+pd.concat([df1,df2],axis=1)
+# Output
+       Yes     No   Yes     No
+Alex  50.0  131.0   NaN    NaN
+Bex   21.0    2.0   NaN    NaN
+Clew   NaN    NaN  43.0  123.0
+Ferd   NaN    NaN  12.0   21.0 
+
+
+
+pd.concat([df1,df2],axis=0) 
+
+      Yes   No
+Alex   50  131
+Bex    21    2
+Clew   43  123
+Ferd   12   21
+
+
+
+
+
+df_customers = pd.DataFrame({
+    "customer_id": [1, 2, 3, 4],
+    "name": ["Bob", "Fred","Nina", "Clew"],
+    "city": ["New Jersey", "Mexico", "Chicago", "Los Angeles"]
+})
+
+df_orders = pd.DataFrame({
+    "order_id": [101,102,103,104,105],
+    "customer_id": [1,2,4,5,1],
+    "fee": [123,540,320,400,235]
+})
+
+df_inner = pd.merge(df_customers, df_orders, on="customer_id", how="inner")
+df_inner2 = pd.merge(df_customers, df_orders, on="customer_id", how="left")
+df_inner3 = pd.merge(df_customers, df_orders, on="customer_id", how="right")
+
+
+print(
+    df_inner,"\n",
+    df_inner2,"\n",
+    df_inner3
+)
+# Output
+
+   customer_id  name         city  order_id  fee
+0            1   Bob   New Jersey       101  123
+1            1   Bob   New Jersey       105  235
+2            2  Fred       Mexico       102  540
+3            4  Clew  Los Angeles       103  320
+    customer_id  name         city  order_id    fee
+0            1   Bob   New Jersey     101.0  123.0
+1            1   Bob   New Jersey     105.0  235.0
+2            2  Fred       Mexico     102.0  540.0
+3            3  Nina      Chicago       NaN    NaN
+4            4  Clew  Los Angeles     103.0  320.0 
+    customer_id  name         city  order_id  fee
+0            1   Bob   New Jersey       101  123
+1            2  Fred       Mexico       102  540
+2            4  Clew  Los Angeles       103  320
+3            5   NaN          NaN       104  400
+4            1   Bob   New Jersey       105  235
+
+
+
+
+
+Examples:
+import pandas as pd
+
+titanic = "archive/train_and_test2.csv"
+
+try:
+    df = pd.read_csv(titanic)
+    df = df.rename(columns={"Sex":"Gender"})
+    df["Embarked"] = df["Embarked"].fillna("Unknown")
+    df["Gender"] = df["Gender"].map({0: "F", 1: "M"})
+    surv_4_gend = df.groupby("Gender")["2urvived"].mean()
+    class_4_gend = df.groupby("Pclass")["2urvived"].mean()
+    df["age_sort"] = df["Age"].apply(lambda x : "Child" if x < 20 else "Adult" ) 
+    surv_4_embrk = df.groupby("Embarked")["2urvived"].mean()
+    df["qcut_fare"] = pd.qcut(df["Fare"],4 ,labels=["low","middle","high","very-high"])
+    analyse_4_fare = df.groupby("Embarked")["Fare"].mean()
+    df["FareBand"] = pd.cut(df["Fare"],6)
+    farbnd_4_surv  = df.groupby("FareBand",observed=False)["2urvived"].mean()
+    print(
+        
+        df,"\n",
+        surv_4_gend,"\n",
+        class_4_gend,"\n",
+        surv_4_embrk,"\n",
+        analyse_4_fare,"\n", 
+        df["Embarked"].value_counts(),"\n",
+        df["FareBand"].value_counts(),"\n",
+        farbnd_4_surv     
+
+               
+    )
+except FileNotFoundError:
+    print("Couldn't read csv")
+
+#Output
+
+      Passengerid   Age      Fare Gender  sibsp  zero  zero.1  zero.2  zero.3  ...  zero.15  zero.16  Embarked  zero.17  zero.18  2urvived  age_sort  qcut_fare           FareBand
+0               1  22.0    7.2500      F      1     0       0       0       0  ...        0        0       2.0        0        0         0     Adult        low   (-0.512, 85.388]
+1               2  38.0   71.2833      M      1     0       0       0       0  ...        0        0       0.0        0        0         1     Adult  very-high   (-0.512, 85.388]
+2               3  26.0    7.9250      M      0     0       0       0       0  ...        0        0       2.0        0        0         1     Adult     middle   (-0.512, 85.388]
+3               4  35.0   53.1000      M      1     0       0       0       0  ...        0        0       2.0        0        0         1     Adult  very-high   (-0.512, 85.388]
+4               5  35.0    8.0500      F      0     0       0       0       0  ...        0        0       2.0        0        0         0     Adult     middle   (-0.512, 85.388]
+...           ...   ...       ...    ...    ...   ...     ...     ...     ...  ...      ...      ...       ...      ...      ...       ...       ...        ...                ...
+1304         1305  28.0    8.0500      F      0     0       0       0       0  ...        0        0       2.0        0        0         0     Adult     middle   (-0.512, 85.388]
+1305         1306  39.0  108.9000      M      0     0       0       0       0  ...        0        0       0.0        0        0         0     Adult  very-high  (85.388, 170.776]
+1306         1307  38.5    7.2500      F      0     0       0       0       0  ...        0        0       2.0        0        0         0     Adult        low   (-0.512, 85.388]
+1307         1308  28.0    8.0500      F      0     0       0       0       0  ...        0        0       2.0        0        0         0     Adult     middle   (-0.512, 85.388]
+1308         1309  28.0   22.3583      F      1     0       0       0       0  ...        0        0       0.0        0        0         0     Adult       high   (-0.512, 85.388]
+
+[1309 rows x 31 columns] 
+ Gender
+F    0.1293
+M    0.5000
+Name: 2urvived, dtype: float64 
+ Pclass
+1    0.421053
+2    0.314079
+3    0.167842
+Name: 2urvived, dtype: float64 
+ Embarked
+0.0        0.344444
+1.0        0.243902
+2.0        0.237418
+Unknown    1.000000
+Name: 2urvived, dtype: float64 
+ Embarked
+0.0        62.336267
+1.0        12.409012
+2.0        27.404639
+Unknown    80.000000
+Name: Fare, dtype: float64 
+ Embarked
+2.0        914
+0.0        270
+1.0        123
+Unknown      2
+Name: count, dtype: int64 
+ FareBand
+(-0.512, 85.388]      1209
+(85.388, 170.776]       62
+(170.776, 256.165]      21
+(256.165, 341.553]      13
+(426.941, 512.329]       4
+(341.553, 426.941]       0
+Name: count, dtype: int64 
+ FareBand
+(-0.512, 85.388]      0.240695
+(85.388, 170.776]     0.596774
+(170.776, 256.165]    0.333333
+(256.165, 341.553]    0.307692
+(341.553, 426.941]         NaN
+(426.941, 512.329]    0.750000
+Name: 2urvived, dtype: float64
+
+
+
+
+
