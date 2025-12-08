@@ -16,11 +16,12 @@ Hey There, Welcome to my
 - **Data Visualization**: Titanic dataset EDA with Seaborn & Matplotlib (Hist, Box, Violin, Joint plots, etc.) 
 
 ### Learning Progress
-- [x] CS50 AI with Python (Nov 24)
-- [x] Kaggle Python Certificate (Nov 24)
-- [x] NumPy Fundamentals (Nov 27)
-- [x] Pandas Fundamentals (Dec 3)
-- [x] Data Visualization (Matplotlib/Seaborn)
+- [x] CS50 AI with Python (Nov 24-25)
+- [x] Kaggle Python Certificate (Nov 24-25)
+- [x] NumPy Fundamentals (Nov 27-25)
+- [x] Pandas Fundamentals (Dec 3-25)
+- [x] Data Visualization (Matplotlib/Seaborn) (Dec 5-25)
+- [ ] Web Scraping & Automation
 - [ ] Machine Learning Basics
 - [ ] And so on...
 
