@@ -11,9 +11,11 @@ Hey There, Welcome to my
 
 ### Projects
 - **Timer App** (v1 & v2): Python fundamentals + threading practice
-- **Data Analysis**: Titanic dataset analysis with pandas
+- **Data Analysis**: Titanic dataset analysis with pandas & 
 - **Cheatsheets**: Quick reference for NumPy & Pandas
-
+- **Titanic Data Visualization:** 
+  - Exploratory data analysis on Titanic dataset using Seaborn & Matplotlib.
+  - Includes: Histograms, Scatter plots, Box plots, Violin plots, Joint plots, and Correlation Heatmaps.
 
 ### Learning Progress
 - [x] CS50 AI with Python (Nov 24)
