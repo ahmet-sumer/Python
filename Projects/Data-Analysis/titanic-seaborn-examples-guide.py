@@ -1,4 +1,5 @@
 import pandas as pd
+pd.plotting.register_matplotlib_converters()
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -24,8 +25,8 @@ try:
     #* Makes a new column (qcut_fare) "qcut_fare" dividing "Fare" into 4 equal-frequency bins
     #* with labels: "low", "middle", "high", "very-high"
     df["qcut_fare"] = pd.qcut(df["Fare"],4 ,labels=["low","middle","high","very-high"])
-
-
+ 
+    
 #! =========== Visualization Templates ============
 
 
@@ -77,16 +78,12 @@ try:
 
 
 #^ Box Plot: Show Age distribution across passenger Classes with customizations
-#? notch=True Adds confidence intervals, showcaps=False removes whisker caps
-#? flierprops={"marker":"^"} customizes outlier markers
-#? boxprops={"facecolor":(.3, .5, .7, .5)} sets box color and transparency
-#? medianprops={"color": "r", "linewidth": 2} sets middle lines color and width
     """plt.figure(figsize=(9,6))
-    sns.boxplot(data=df, x="Pclass", y="Age",
-                notch=True, showcaps=False,
-                flierprops={"marker": "^"},
-                boxprops={"facecolor": (.3, .5, .7, .5)},
-                medianprops={"color": "r", "linewidth": 2})"""
+    sns.boxplot(data=df, x="Pclass", y="Age",                      
+                notch=True, showcaps=False,                        #? notch=True Adds confidence intervals, showcaps=False removes whisker caps
+                flierprops={"marker": "^"},                        #? flierprops={"marker":"^"} customizes outlier markers
+                boxprops={"facecolor": (.3, .5, .7, .5)},          #? boxprops={"facecolor":(.3, .5, .7, .5)} sets box color and transparency
+                medianprops={"color": "r", "linewidth": 2})"""     #? medianprops={"color": "r", "linewidth": 2} sets middle lines color and width
     
 
 #^ Count Plot: Show frequency of each Gender category, further divided by Passenger Class
