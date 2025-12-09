@@ -119,8 +119,11 @@ try:
 #? fill=False Doesn't colorise violin areas
 #? palette={"F": "gray", "M": "lightblue"} sets palette of Age distribution with colors 
     """sns.violinplot(data=df, x="Embarked", y="Age", hue="Gender",
-               split=True, inner="quart", fill=False,
-               palette={"F": "gray", "M": "lightblue"})
+                fill=False,                 #* split=True places to violins side by side for comparision 
+                split=True,                 #* inner="quart" shows quartile lines inside of violins
+                inner="quart",              #* fill=False Doesn't colorise violin areas
+                palette={"F": "gray",       #* palette={"F": "gray", "M": "lightblue"} sets palette of Age distribution with colors 
+                  "M": "lightblue"})      
     plt.title("Age Analyze for Gender")"""
 
 #& Displays all plots
